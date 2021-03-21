@@ -1,5 +1,5 @@
 import * as cache from "./cache";
-import { compile, parse } from "./token";
+import { compile, parse, disallowProtoPath } from "./token";
 
 export { compile, parse };
 
@@ -33,7 +33,7 @@ export interface Operand {
  * ```
  */
 export function assign(operand: Operand, pointer: string, value: any): boolean {
-  const tokens = [...parse(pointer)];
+  const tokens = disallowProtoPath([...parse(pointer)]);
   const lastToken = tokens.pop();
   const parentValue = deref(operand, compile(tokens));
 
