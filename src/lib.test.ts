@@ -14,6 +14,9 @@ test("assign()", () => {
   expect(assign(operand, "/b/c", "Hello, world!")).toBe(false);
   expect(deref(operand, "/b/c")).toBeUndefined();
   expect(operand.b).toBeUndefined();
+
+  expect(assign(operand, '/__proto__/polluted', true)).toBe(false);
+  expect(Object.keys(Object.prototype).includes('polluted')).toBe(false);
 });
 
 test("deref()", () => {

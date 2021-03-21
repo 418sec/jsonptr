@@ -75,3 +75,17 @@ export function unescape(token: string): string {
       return token.replace(ESCAPED, unescape);
   }
 }
+
+/**
+ * Blacklist dangerous Tokens to prevent Prototype Pollution vulnerability
+ */
+ export function disallowProtoPath(tokens: string[]): string[] {
+  const isTokenBlackListed = tokens.findIndex((key) => 
+    ['__proto__', 'constructor', 'prototype'].includes(key));
+
+  if (isTokenBlackListed == -1) {
+    return tokens;
+  } else {
+    return [];
+  }
+}
